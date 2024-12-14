@@ -24,7 +24,7 @@ const pages = {
             id: 'default',
             title: 'アカウント設定',
             type: 'item',
-            url: '/dashboard',
+            url: '/accounts/settings',
             icon: icons.MdSettings,
             breadcrumbs: false
         }

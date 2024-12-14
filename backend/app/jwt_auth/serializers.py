@@ -12,7 +12,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserInfo
-        fields = ["name", "last_name", "first_name", "name_furi", "last_name_furi", "first_name_furi", "phone", "role"]
+        fields = ["name", "last_name", "first_name", "name_furi", "last_name_furi", "first_name_furi", "phone", "role", "avatar"]
         
 class UserSerializer(serializers.ModelSerializer):
     user_info = UserInfoSerializer(read_only=True)
@@ -51,3 +51,8 @@ class UserFlatSerializer(serializers.ModelSerializer):
     def get_is_allowed(self, obj):
         user = User.objects.get(user_info=obj)
         return user.is_allowed
+
+class UserAvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserInfo
+        fields = ['id', 'username', 'email', 'avatar']

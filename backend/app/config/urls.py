@@ -9,6 +9,7 @@ from jwt_auth.urls import urlpatterns as auth_urls
 from api.v0.customer.member.urls import urlpatterns as v0_member_urls
 from api.v0.customer.admin_user.urls import urlpatterns as v0_admin_urls
 from api.v0.shared.urls import urlpatterns as v0_shared_urls
+from jwt_auth.views.ProfileView import *
 
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
@@ -16,6 +17,7 @@ urlpatterns = [
     re_path(r'^api/v0/', include(v0_member_urls)),
     re_path(r'^api/v0/admin/', include(v0_admin_urls)),
     re_path(r'^api/', include(v0_shared_urls)),
+    re_path(r'^api/upload-avatar/', AvatarUploadView .as_view(), name='upload-avatar'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 
 if settings.DEBUG:

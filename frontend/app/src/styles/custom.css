@@ -5,3 +5,7 @@
 .base-Menu-root{
     z-index: 3;
 }
+
+.css-1aqaw6w-MuiButtonBase-root-MuiChip-root.MuiChip-clickable:hover {
+    background-color: '#2A5E3A'!important;
+}

@@ -3,15 +3,23 @@ import { postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, setError } from '@/store/features/user';
 
-import { Avatar, Button } from '@mui/material';
+import { Avatar, Button, Chip } from '@mui/material';
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
 import AdminLayout from '@/components/templates/layout/AdminLayout';
+import { useAuth } from '@/contexts/AuthContext';
+import { FaAngleRight, FaUser } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 
 const AccountSettingsPage = () => {
+    const { user } = useAuth();
+    const router = useRouter();
+    const changeAvatar = () => {
+        router.push('/accounts/settings/avatar')
+    }
 
     return (
         <AuthLayout>
@@ -24,15 +32,62 @@ const AccountSettingsPage = () => {
                             <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
                                 <div className='flex items-center'>
                                     <h4 className='font-bold text-[18px] w-[250px]'>プロフィール画像</h4>
-                                    <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+                                    <Chip
+                                        sx={{
+                                            height: '60px',
+                                            width: '60px',
+                                            alignItems: 'center',
+                                            borderRadius: '50%',
+                                            transition: 'all .2s ease-in-out',
+                                            backgroundColor: '#3B7B4A',
+                                            '& .MuiChip-label': {
+                                                lineHeight: 0
+                                            }
+                                        }}
+                                        label={<FaUser size='30px' color={'#fff'} />}
+                                        variant='outlined'
+                                        aria-controls={'menu-list-grow'}
+                                        aria-haspopup='true'
+                                        color='primary'
+                                    />
                                 </div>
-                                <div>0<span className='text-[12px]'>件</span></div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]' onClick={()=>changeAvatar()}>変更する <FaAngleRight className='pt-[4px]'/></div>
                             </div>
                         </div>
                         <div className='p-[24px_80px]'>
                             <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
-                                <div>今月の売上</div>
-                                <div><span>¥</span>0</div>
+                                <div className='flex items-center'>
+                                    <h4 className='font-bold text-[18px] w-[250px]'>ユーザー名</h4>
+                                    <div className='text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>test01</div>
+                                </div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]'>変更する <FaAngleRight className='pt-[4px]'/></div>
+                            </div>
+                        </div>
+                        <div className='p-[24px_80px]'>
+                            <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
+                                <div className='flex items-center'>
+                                    <h4 className='font-bold text-[18px] w-[250px]'>プロフィール文章</h4>
+                                    <div className='max-w-[320px] overflow-hidden text-ellipsis whitespace-nowrap text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>テキストテキストテキストテキストテキスト</div>
+                                </div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]'>変更する <FaAngleRight className='pt-[4px]'/></div>
+                            </div>
+                        </div>
+                        <div className='p-[24px_80px]'>
+                            <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
+                                <div className='flex items-center'>
+                                    <h4 className='font-bold text-[18px] w-[250px]'>メールアドレス</h4>
+                                    <div className='text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>test@gmail.com</div>
+                                </div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]'>変更する <FaAngleRight className='pt-[4px]'/></div>
+                            </div>
+                        </div>
+                        <div className='p-[24px_80px]'>
+                            <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
+                                <div className='flex items-center'>
+                                    <h4 className='font-bold text-[18px] w-[250px]'>パスワード</h4>
+                                    <div className='text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>********</div>
+                                </div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]'>変更する <FaAngleRight className='pt-[4px]'/></div>
                             </div>
                         </div>
                     </MainPannel>

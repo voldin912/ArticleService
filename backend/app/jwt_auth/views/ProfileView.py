@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from django.contrib.auth.hashers import check_password, make_password
 from utils.permissions import IsAuthenticated
 from django.db.models import *
@@ -60,3 +61,16 @@ class ProfileView(APIView):
         except Exception as e:
             print(str(e))
             return Response({"msg": str(e)}, status=400)
+
+class AvatarUploadView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        file = request.data.get('avatar')
+        if file:
+            user.avatar = file
+            user.save()
+            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+        return Response({"error": "No avatar file provided"}, status=status.HTTP_400_BAD_REQUEST)

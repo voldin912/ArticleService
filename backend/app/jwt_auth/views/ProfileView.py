@@ -110,3 +110,13 @@ class ProfileTextView(APIView):
 
         m_user.user_info.save()
         return Response(UserSerializer(m_user).data, status=200)
+
+class EmailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        m_user = User.objects.get(id=request.user.id)
+        m_user.email = request.data.get('email')
+
+        m_user.save()
+        return Response(UserSerializer(m_user).data, status=200)

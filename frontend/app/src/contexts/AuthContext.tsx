@@ -17,6 +17,7 @@ type AuthContextProps = {
     setLoading: (loading: boolean) => void;
     setPending: (pending: boolean) => void;
     login: (crediential: any, callback: (user: IUser | null) => void) => void;
+    updateUser: (user:IUser, callback: () => void) => void;
     logout: () => void;
     refresh: () => void;
 };
@@ -129,6 +130,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setPending(false);
     };
 
+    const updateUser = async (user:IUser, callback:() =>void) => {
+        setUser(user);
+        callback();
+    }
+
     const refresh = async () => {
         const res = await apiInstance.get(`/me`);
         if (res.status === 200) {
@@ -156,6 +162,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 login: login,
                 logout: logout,
                 refresh: refresh,
+                updateUser,
                 setLoading,
                 setPending
             }}

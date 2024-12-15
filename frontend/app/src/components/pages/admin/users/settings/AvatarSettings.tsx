@@ -47,7 +47,7 @@ const ArticleButton = styled(Button)({
 });
 
 const AvatarSettingsPage = () => {
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
     const [avatar, setAvatar] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
@@ -89,7 +89,9 @@ const AvatarSettingsPage = () => {
         setUploading(true);
         const res = await postFormdata(`/upload-avatar`, formData);
         if (res.status == 200) {
-            dispatch(appendMessage({ type: 'success', message: 'プロフィール画像が正常に変更されました!' }));
+            updateUser && updateUser(res.data, () => {
+                dispatch(appendMessage({ type: 'success', message: 'プロフィール画像が正常に変更されました!' }));
+            })
         }
         if (res.status == 422 && res.data.errors) {
             console.log("****voldin err****",res.data.errors)

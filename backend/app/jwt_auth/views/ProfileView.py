@@ -101,3 +101,12 @@ class UserNameView(APIView):
         except Exception as e:
             print(str(e))
             return Response({"msg": str(e)}, status=400)
+class ProfileTextView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        m_user = User.objects.get(id=request.user.id)
+        m_user.user_info.profile_text = request.data.get('profile_text')
+
+        m_user.user_info.save()
+        return Response(UserSerializer(m_user).data, status=200)

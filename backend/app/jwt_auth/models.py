@@ -27,7 +27,7 @@ class UserInfo(models.Model):
     first_name_furi = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-
+    profile_text = models.CharField(max_length=1000, null=True, blank=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,6 @@ class UserInfo(models.Model):
         verbose_name = "担当情報"
         verbose_name_plural = "担当情報管理"
         
-
 class User(AbstractUser):
     user_id = models.CharField(max_length=50, null=True, blank=True)
     user_info = models.ForeignKey(UserInfo, on_delete=models.CASCADE, blank=True, null=True)

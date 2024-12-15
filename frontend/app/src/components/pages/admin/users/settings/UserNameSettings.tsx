@@ -112,7 +112,7 @@ const UserNameSettingsPage = () => {
         const res = await postRequest('/profile/name', formData);
         if (res.status == 200) {
             updateUser && updateUser(res.data, () => {
-                dispatch(appendMessage({ type: 'success', message: 'プロフィール画像が正常に変更されました!' }));
+                dispatch(appendMessage({ type: 'success', message: 'ユーザー名が正常に変更されました!' }));
             })
         }
         if (res.status == 422 && res.data.errors) {

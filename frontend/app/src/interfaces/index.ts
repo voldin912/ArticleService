@@ -13,7 +13,8 @@ export interface IUser {
         first_name_furi: string;
         phone: string;
         role: IRole;
-        avatar: string
+        avatar: string,
+        profile_text: string
     };
     permission: 'owner' | 'customer' | 'super';
     is_active: boolean;

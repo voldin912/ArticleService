@@ -35,6 +35,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: Props) => {
                                 <div>フォロワー</div>
                             </div>
                         </div>
+                        <p className='text-justify w-full'>{user?.user_info.profile_text}</p>
                     </div>
                 </Box>
             </Box>

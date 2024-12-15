@@ -40,6 +40,10 @@ const AccountSettingsPage = () => {
         router.push('/accounts/settings/email')
     }
 
+    const changePassword = () => {
+        router.push('/accounts/settings/password')
+    }
+
     return (
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
@@ -110,7 +114,7 @@ const AccountSettingsPage = () => {
                                     <h4 className='font-bold text-[18px] w-[250px]'>パスワード</h4>
                                     <div className='text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>********</div>
                                 </div>
-                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]'>変更する <FaAngleRight className='pt-[4px]'/></div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]' onClick={()=>changePassword()}>変更する <FaAngleRight className='pt-[4px]'/></div>
                             </div>
                         </div>
                     </MainPannel>

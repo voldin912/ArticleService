@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import { appendMessage } from '@/store/features/utils';
+import PasswordForm from '@/components/pages/accounts/profile/sections/PasswordForm';
 
 const inter = Inter({
     subsets: ['latin'], // Specify character subsets (e.g., 'latin', 'latin-ext')
@@ -97,26 +98,8 @@ const ProfileTextSettingsPage = () => {
                         <div className='p-[24px_80px]'>
                             <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
                                 <div className='flex items-center gap-[12px] w-full'>
-                                    <h4 className='font-bold text-[18px] w-[250px]'>プロフィール文章</h4>
-                                    <TextField
-                                        label='プロフィール文章'
-                                        variant='outlined'
-                                        multiline
-                                        fullWidth 
-                                        value={text}
-                                        onChange={e=>setText(e.target.value)}
-                                        error={textErr}
-                                        helperText={textErr ? 'プロフィール文章を入力してください。' : ''}
-                                    />
+                                    <PasswordForm />
                                 </div>
-                            </div>
-                            <div className='flex items-center justify-center py-5'>
-                                <ArticleButton
-                                    variant='contained'
-                                    onClick={handleTextUpdate}
-                                >
-                                    変更
-                                </ArticleButton>
                             </div>
                         </div>
                     </MainPannel>

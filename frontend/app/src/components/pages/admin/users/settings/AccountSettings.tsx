@@ -28,6 +28,10 @@ const AccountSettingsPage = () => {
         router.push('/accounts/settings/avatar')
     }
 
+    const changeName = () => {
+        router.push('/accounts/settings/name')
+    }
+
     return (
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
@@ -69,9 +73,9 @@ const AccountSettingsPage = () => {
                             <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
                                 <div className='flex items-center'>
                                     <h4 className='font-bold text-[18px] w-[250px]'>ユーザー名</h4>
-                                    <div className='text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>test01</div>
+                                    <div className='text-[18px] text-lg font-normal leading-[46px] tracking-[0.1em]'>{user?.user_info.name}</div>
                                 </div>
-                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]'>変更する <FaAngleRight className='pt-[4px]'/></div>
+                                <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]' onClick={()=>changeName()}>変更する <FaAngleRight className='pt-[4px]'/></div>
                             </div>
                         </div>
                         <div className='p-[24px_80px]'>

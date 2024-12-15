@@ -50,7 +50,6 @@ const AvatarSettingsPage = () => {
     const { user, updateUser } = useAuth();
     const [avatar, setAvatar] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
-    const [uploading, setUploading] = useState(false);
     const router = useRouter();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const dispatch = useAppDispatch();
@@ -86,7 +85,6 @@ const AvatarSettingsPage = () => {
         }
         const formData = new FormData();
         formData.append("avatar", avatar);
-        setUploading(true);
         const res = await postFormdata(`/upload-avatar`, formData);
         if (res.status == 200) {
             updateUser && updateUser(res.data, () => {
@@ -96,7 +94,6 @@ const AvatarSettingsPage = () => {
         if (res.status == 422 && res.data.errors) {
             console.log("****voldin err****",res.data.errors)
         }
-        setUploading(false);
     }
     return (
         <AuthLayout>
@@ -135,7 +132,7 @@ const AvatarSettingsPage = () => {
                                 <input ref={fileInputRef} style={{ display: 'none' }} type="file" onChange={handleFileChange} accept="image/*" />
                             </div>
                             <div className='flex items-center justify-center py-5'>
-                                <ArticleButton variant="contained" onClick={()=>handleUpload()} disabled={uploading} startIcon={<FaUpload className='!text-[16px]'/>}>変更</ArticleButton>
+                                <ArticleButton variant="contained" onClick={()=>handleUpload()} startIcon={<FaUpload className='!text-[16px]'/>}>変更</ArticleButton>
                             </div>
                         </div>
                     </MainPannel>

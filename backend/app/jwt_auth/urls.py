@@ -21,4 +21,5 @@ urlpatterns = [
     re_path(r"me$", GetMyAccountInfoView.as_view()),
     re_path(r"profile$", ProfileView.as_view()),
     re_path(r"notifications$", GetNotificationsView.as_view()),
+    re_path(r"profile/name$", UserNameView.as_view()),
 ]

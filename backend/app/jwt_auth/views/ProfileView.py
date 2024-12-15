@@ -80,3 +80,24 @@ class AvatarUploadView(APIView):
         except Exception as e:
             print(str(e))
             return Response({"msg": str(e)}, status=400)
+
+class UserNameView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        try:   
+            with transaction.atomic():
+                m_user = User.objects.get(id=request.user.id)
+                print(str(request.user.id))
+                m_user.user_info.first_name = request.data.get('first_name')
+                m_user.user_info.last_name = request.data.get('last_name')
+                m_user.user_info.first_name_furi = request.data.get('first_name_furi')
+                m_user.user_info.last_name_furi = request.data.get('last_name_furi')
+                m_user.user_info.name = request.data.get('last_name') + " " + request.data.get('first_name')
+                m_user.user_info.name_furi = request.data.get('last_name_furi') + " " + request.data.get('first_name_furi')
+
+                m_user.user_info.save()
+                return Response(UserSerializer(m_user).data, status=200)
+        except Exception as e:
+            print(str(e))
+            return Response({"msg": str(e)}, status=400)

@@ -51,7 +51,7 @@
 }
 
 .fullscreen .react-images__blanket {
-  z-index: 1200;
+  z-index: 99;
 }
 
 .apexcharts-legend-series .apexcharts-legend-marker {
@@ -73,7 +73,7 @@
 .scrollbar-container > .ps.ps--active-y > .ps__rail-y {
   width: 5px;
   background-color: transparent !important;
-  z-index: 999;
+  z-index: 99;
 }
 .scrollbar-container.ps.ps--active-y > .ps__rail-y:hover, .scrollbar-container.ps.ps--active-y > .ps__rail-y.ps--clicking,
 .scrollbar-container > .ps.ps--active-y > .ps__rail-y:hover,

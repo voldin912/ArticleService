@@ -3,7 +3,7 @@
 
 // ==============================|| LIGHT BOX ||============================== //
 .fullscreen .react-images__blanket {
-    z-index: 1200;
+    z-index: 99;
 }
 
 // ==============================|| APEXCHART ||============================== //
@@ -36,7 +36,7 @@
     &.ps--active-y > .ps__rail-y {
         width: 5px;
         background-color: transparent !important;
-        z-index: 999;
+        z-index: 99;
         &:hover,
         &.ps--clicking {
             width: 5px;

@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { postRequest } from '@/utils/axios';
+import { postFormdata, postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, setError } from '@/store/features/user';
 
@@ -14,6 +14,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { FaAngleLeft, FaAngleRight, FaUpload, FaUser } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import { appendMessage } from '@/store/features/utils';
 
 const inter = Inter({
     subsets: ['latin'], // Specify character subsets (e.g., 'latin', 'latin-ext')
@@ -26,7 +28,7 @@ const ArticleButton = styled(Button)({
     textTransform: 'none',
     fontSize: 16,
     fontWeight: 600,
-    padding: '8px 23px',
+    padding: '8px 50px',
     lineHeight: '24px',
     backgroundColor: '#00A4E5',
     fontFamily: inter.variable,
@@ -51,11 +53,12 @@ const AvatarSettingsPage = () => {
     const [uploading, setUploading] = useState(false);
     const router = useRouter();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const dispatch = useAppDispatch();
 
     useEffect(()=> {
         console.log(user?.user_info.avatar)
         if(user?.user_info.avatar)
-        setPreview(URL.createObjectURL(user?.user_info.avatar))
+        setPreview(process.env.NEXT_PUBLIC_BACKEND_URL+user?.user_info.avatar)
     },[])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,16 +86,13 @@ const AvatarSettingsPage = () => {
         }
         const formData = new FormData();
         formData.append("avatar", avatar);
-    
         setUploading(true);
-
-        const res = await postRequest(`/upload-avatar`, formData);
+        const res = await postFormdata(`/upload-avatar`, formData);
         if (res.status == 200) {
-            console.log(res.data)
+            dispatch(appendMessage({ type: 'success', message: 'プロフィール画像が正常に変更されました!' }));
         }
-
         if (res.status == 422 && res.data.errors) {
-            console.log(res.data.errors)
+            console.log("****voldin err****",res.data.errors)
         }
         setUploading(false);
     }
@@ -131,7 +131,9 @@ const AvatarSettingsPage = () => {
                                     /> }
                                 </div>
                                 <input ref={fileInputRef} style={{ display: 'none' }} type="file" onChange={handleFileChange} accept="image/*" />
-                                <ArticleButton variant="contained" onClick={()=>handleUpload()} disabled={uploading} startIcon={<FaUpload className='!text-[16px]'/>}>{uploading ? "アップロード中..." : "変更"}</ArticleButton>
+                            </div>
+                            <div className='flex items-center justify-center py-5'>
+                                <ArticleButton variant="contained" onClick={()=>handleUpload()} disabled={uploading} startIcon={<FaUpload className='!text-[16px]'/>}>変更</ArticleButton>
                             </div>
                         </div>
                     </MainPannel>

@@ -18,7 +18,6 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: Props) => {
     const theme = useTheme();
     const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
     const { user } = useAuth();
-    console.log("****", user)
     const drawer = (
         <>
             <Box sx={{ display: { xs: 'block' } }}>
@@ -70,6 +69,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: Props) => {
                         color: theme.palette.text.primary,
                         position:'relative',
                         borderRight: 'none',
+                        zIndex:99,
                         [theme.breakpoints.up('md')]: {
                             top: '72px'
                         }

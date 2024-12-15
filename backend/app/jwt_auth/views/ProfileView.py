@@ -67,10 +67,16 @@ class AvatarUploadView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        user = request.user
-        file = request.data.get('avatar')
-        if file:
-            user.avatar = file
-            user.save()
-            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
-        return Response({"error": "No avatar file provided"}, status=status.HTTP_400_BAD_REQUEST)
+        try:   
+            with transaction.atomic():
+                m_user = User.objects.get(id=request.user.id)
+                print(str(request.user.id))
+                file = request.data.get('avatar')
+                if file:
+                    m_user.user_info.avatar = file
+                    m_user.user_info.save()
+                    return Response(UserSerializer(m_user).data, status=200)
+                return Response({"error": "No avatar file provided"}, status=400)
+        except Exception as e:
+            print(str(e))
+            return Response({"msg": str(e)}, status=400)

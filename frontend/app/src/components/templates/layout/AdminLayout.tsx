@@ -15,6 +15,7 @@ import Header from './components/Header';
 import Sidebar from './components/SideBar';
 import AdminWrapper from './components/AdminWrapper';
 import AdminHeader from './components/AdminHeader';
+import zIndex from '@mui/material/styles/zIndex';
 
 interface Props {
     children?: React.ReactNode;
@@ -44,7 +45,7 @@ const AdminLayout = ({ children }: Props) => {
                 sx={{
                     bgcolor: theme.palette.background.default,
                     transition: leftDrawerOpened ? theme.transitions.create('width') : 'none',
-                    zIndex: 999999,
+                    zIndex: 100,
                 }}
             >
                 <AdminHeader handleLeftDrawerToggle={handleLeftDrawerToggle} />

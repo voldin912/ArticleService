@@ -17,7 +17,7 @@ urlpatterns = [
     re_path(r'^api/v0/', include(v0_member_urls)),
     re_path(r'^api/v0/admin/', include(v0_admin_urls)),
     re_path(r'^api/', include(v0_shared_urls)),
-    re_path(r'^api/upload-avatar/', AvatarUploadView .as_view(), name='upload-avatar'),
+    re_path(r'^api/upload-avatar$', AvatarUploadView.as_view(), name='upload-avatar'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
 
 if settings.DEBUG:

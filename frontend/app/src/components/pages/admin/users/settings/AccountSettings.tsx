@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, setError } from '@/store/features/user';
@@ -17,6 +17,13 @@ import { useRouter } from 'next/navigation';
 const AccountSettingsPage = () => {
     const { user } = useAuth();
     const router = useRouter();
+    const [avatar, setAvatar] = useState<string | null>(null);
+
+    useEffect(()=>{
+        if(user?.user_info.avatar)
+        setAvatar(process.env.NEXT_PUBLIC_BACKEND_URL+user?.user_info.avatar)
+    },[])
+
     const changeAvatar = () => {
         router.push('/accounts/settings/avatar')
     }
@@ -32,7 +39,9 @@ const AccountSettingsPage = () => {
                             <div className='flex justify-between items-center text-[18px] pb-[12px] w-full border-b border-solid'>
                                 <div className='flex items-center'>
                                     <h4 className='font-bold text-[18px] w-[250px]'>プロフィール画像</h4>
-                                    <Chip
+                                    {
+                                        avatar?<img src={avatar} alt="Avatar Preview" style={{ width: 60, height: 60, borderRadius: "50%" }}
+                                    /> : <Chip
                                         sx={{
                                             height: '60px',
                                             width: '60px',
@@ -50,6 +59,8 @@ const AccountSettingsPage = () => {
                                         aria-haspopup='true'
                                         color='primary'
                                     />
+                                    }
+                                    
                                 </div>
                                 <div className='flex items-center cursor-pointer font-noto-sans text-lg font-normal leading-[46px] tracking-[0.1em] text-[#00A4E5] hover:text-[#6ecaee]' onClick={()=>changeAvatar()}>変更する <FaAngleRight className='pt-[4px]'/></div>
                             </div>

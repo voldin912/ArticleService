@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -33,6 +33,7 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 // _app.tsx or any specific page/component
 import { Inter, Noto_Sans_JP } from 'next/font/google';
+import { reset, setArticleStep } from '@/store/features/shared_data';
 
 const inter = Inter({
     subsets: ['latin'], // Specify character subsets (e.g., 'latin', 'latin-ext')
@@ -49,9 +50,9 @@ const noto_sans_jp = Noto_Sans_JP({
 const ArticleButton = styled(Button)({
     boxShadow: 'none',
     textTransform: 'none',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 700,
-    padding: '16px 23px',
+    padding: '12px 23px',
     lineHeight: '24px',
     backgroundColor: '#00A4E5',
     fontFamily: inter.variable,
@@ -67,7 +68,32 @@ const ArticleButton = styled(Button)({
     '&:focus': {
       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
     },
-  });
+});
+
+const ArticleButtonOutlined = styled(Button)({
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    fontWeight: 700,
+    padding: '12px 23px',
+    lineHeight: '24px',
+    backgroundColor: '#fff',
+    border: 'solid 1px #1976d2',
+    color: '#00A4E5',
+    fontFamily: inter.variable,
+    '&:hover': {
+      backgroundColor: '#1976D20A',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#1976D20A',
+      borderColor: '#1976d2',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+});
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -80,6 +106,8 @@ const AdminProfileSection = () => {
     const anchorRef = useRef(null);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const customization = useAppSelector(state => state.utils);
+    const articleData = useAppSelector(state => state.shared_data.article_data);
+    const dispatch = useAppDispatch();
 
     const handleLogout = async () => {
         logout && logout();
@@ -96,7 +124,7 @@ const AdminProfileSection = () => {
     const handleListItemClick = (event, index, route = '') => {
         setSelectedIndex(index);
         handleClose(event);
-
+        dispatch(reset())
         if (route && route !== '') {
             router.push(route);
         }
@@ -106,7 +134,16 @@ const AdminProfileSection = () => {
     };
 
     const onClickCreateArticle = () => {
+        router.push('/members/articles/create_article');
+    }
 
+    const gotoNext = () => {
+        switch(articleData.cur_step) {
+            case 1:
+                router.push('/members/articles/create_article2');
+            case 2: 
+                router.push('/members/articles/create_article3')
+        }
     }
 
     const prevOpen = useRef(open);
@@ -176,7 +213,11 @@ const AdminProfileSection = () => {
                 onClick={handleToggle}
                 color='primary'
             />
-            <ArticleButton variant="contained" startIcon={<EditIcon />}>記事投稿</ArticleButton>
+            {articleData.cur_step == 0 && <ArticleButton variant="contained" startIcon={<EditIcon />}  onClick={onClickCreateArticle}>記事投稿</ArticleButton>}
+            {articleData.cur_step == 1 && <div className='flex items-center gap-2'>
+                <ArticleButtonOutlined variant="outlined">下書き保存</ArticleButtonOutlined>
+                <ArticleButton variant="contained" onClick={()=>gotoNext()}>次のステップへ</ArticleButton>
+            </div>}
             <Popper
                 placement='bottom-start'
                 open={open}

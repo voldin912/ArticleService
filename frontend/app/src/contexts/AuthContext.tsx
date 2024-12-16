@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearMessages } from '@/store/features/utils';
 
 import toast, { Toaster } from 'react-hot-toast';
+import { reset } from '@/store/features/shared_data';
 
 type AuthContextProps = {
     isAuthenticated: boolean;
@@ -144,7 +145,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const logout = () => {
         setPending(true);
-
+        dispatch(reset())
         deleteCookie(COOKIE_NAME);
         setUser(null);
         delete apiInstance.defaults.headers.Authorization;

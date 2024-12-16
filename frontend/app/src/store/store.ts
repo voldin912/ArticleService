@@ -39,8 +39,14 @@ export const store = configureStore({
         backup,
     },
     devTools: process.env.NODE_ENV !== 'production',
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware({}).concat(process.env.NODE_ENV !== 'production' ? [logger] : [])
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                // Ignore these paths in state and action
+                ignoredPaths: ['shared_data.article_data.image'],
+                ignoredActions: ['shared_data/setArticleImage'],
+              },
+        }).concat(process.env.NODE_ENV !== 'production' ? [logger] : [])
 });
 
 setupListeners(store.dispatch);

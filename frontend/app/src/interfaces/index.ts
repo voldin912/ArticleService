@@ -23,3 +23,16 @@ export interface IUser {
     created_at?: string;
     updated_at?: string;
 }
+
+export interface IArticle {
+    cur_step: number;
+    id: number;
+    image: File;
+    title: string;
+    content: string;
+    category: string;
+    price: number;
+    nonfree: number;
+    created_by: number;
+    created_at: string;
+}

@@ -1,30 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { publicApiInstance } from '@/utils/axios';
-import { IDomain, IProperty, IRole, IStatus } from '@/interfaces';
+import {IRole,IArticle } from '@/interfaces';
+import { Shared } from 'react-redux';
 
 type SharedDataState = {
-    domain_data: IDomain[];
     role_data: IRole[];
-    status_data: IStatus[];
-    property_data: IProperty[];
+    article_data: IArticle;
 };
 
 const initialState: SharedDataState = {
-    domain_data: [],
-    status_data: [],
     role_data: [],
-    property_data: []
-};
-
-const fetchDomainData = createAsyncThunk('shared_data/fetchDomainData', async () => {
-    const res = await publicApiInstance.get(`/data/domain`);
-
-    if (res.status === 200) {
-        return res.data as IDomain[];
-    } else {
-        return [];
+    article_data: {
+        cur_step: 0,
+        id: 0,
+        image: {} as File,
+        title: '',
+        content: '',
+        category: '',
+        price: 0,
+        nonfree: 0,
+        created_by: 0,
+        created_at: '',
     }
-});
+};
 
 const fetchRoleData = createAsyncThunk('shared_data/fetchRoleData', async () => {
     const res = await publicApiInstance.get(`/data/role`);
@@ -36,48 +34,76 @@ const fetchRoleData = createAsyncThunk('shared_data/fetchRoleData', async () => 
     }
 });
 
-const fetchStatusData = createAsyncThunk('shared_data/fetchStatusData', async () => {
-    const res = await publicApiInstance.get(`/data/status`);
-
-    if (res.status === 200) {
-        return res.data as IStatus[];
-    } else {
-        return [];
-    }
-});
-
-const fetchPropertyData = createAsyncThunk('shared_data/fetchPropertyData', async () => {
-    const res = await publicApiInstance.get(`/data/property`);
-
-    if (res.status === 200) {
-        return res.data as IProperty[];
-    } else {
-        return [];
-    }
-});
-
 export const slice = createSlice({
     name: 'shared_data',
     initialState,
     reducers: {
-        reset: () => initialState
+        reset: () => initialState,
+        setArticleStep: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                cur_step: action.payload.cur_step
+            };
+        },
+        setArticleData: (state: SharedDataState, action:any) => {
+            state.article_data = action.payload.article_data
+        },
+        setArticleImage: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                image: action.payload.image
+            }
+        },
+        setArticleTitle: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                title: action.payload.title
+            }
+        },
+        setArticleContent: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                content: action.payload.content
+            }
+        },
+        setArticleCategory: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                category: action.payload.category
+            }
+        },
+        setArticlePrice: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                price: action.payload.price
+            }
+        },
+        setArticleNonFreeArea: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                nonfree: action.payload.nonfree
+            }
+        },
+        setArticleCreator: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                created_by: action.payload.created_by
+            }
+        },
+        setArticleCreatedAt: (state: SharedDataState, action:any) => {
+            state.article_data = {
+                ...state.article_data,
+                created_at: action.payload.created_at
+            }
+        },
     },
-    extraReducers: builder => {
-        builder.addCase(fetchDomainData.fulfilled, (state: SharedDataState, action: any) => {
-            state.domain_data = action.payload as IDomain[];
-        });
+    extraReducers: (builder:any) => {
         builder.addCase(fetchRoleData.fulfilled, (state: SharedDataState, action: any) => {
             state.role_data = action.payload as IRole[];
-        });
-        builder.addCase(fetchPropertyData.fulfilled, (state: SharedDataState, action: any) => {
-            state.property_data = action.payload as IProperty[];
-        });
-        builder.addCase(fetchStatusData.fulfilled, (state: SharedDataState, action: any) => {
-            state.status_data = action.payload as IStatus[];
         });
     }
 });
 
-export const { reset } = slice.actions;
-export { fetchRoleData, fetchStatusData, fetchPropertyData, fetchDomainData };
+export const { reset, setArticleStep, setArticleData, setArticleImage, setArticleTitle, setArticleContent, setArticleCategory, setArticlePrice, setArticleNonFreeArea, setArticleCreator, setArticleCreatedAt} = slice.actions;
+export { fetchRoleData,  };
 export default slice.reducer;

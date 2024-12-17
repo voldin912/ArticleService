@@ -13,7 +13,7 @@ const initialState: SharedDataState = {
     article_data: {
         cur_step: 0,
         id: 0,
-        image: {} as File,
+        image: null,
         title: '',
         content: '',
         category: '',

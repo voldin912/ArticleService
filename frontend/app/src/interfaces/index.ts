@@ -27,7 +27,7 @@ export interface IUser {
 export interface IArticle {
     cur_step: number;
     id: number;
-    image: File;
+    image: File | null;
     title: string;
     content: string;
     category: string;

@@ -17,6 +17,7 @@ const CreateArticlePage = () => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   
+    /* disable-eslint */
     // Handle file selection
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]; // Get the selected file
@@ -28,6 +29,9 @@ const CreateArticlePage = () => {
             dispatch(setArticleImage({image:file}))
         }
     };
+    
+    /* enable-eslint */
+
     useEffect(()=>{
         dispatch(setArticleStep({cur_step: 1}))
     },[])

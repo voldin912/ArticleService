@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IName } from '@/interfaces';
+import { IName } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -38,7 +38,6 @@ type State = {
             enable: boolean;
         };
         result: {
-            data: ICustomer[];
             total: number;
         };
     };
@@ -78,7 +77,6 @@ const initialState: State = {
             enable: true
         },
         result: {
-            data: [],
             total: 0
         }
     }

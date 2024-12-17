@@ -124,7 +124,7 @@ const UserForm = () => {
                         error={errors.role ? true : false}
                     >
                         <MenuItem value={0}>選択する</MenuItem>
-                        {shared_data.role_data.map(role => (
+                        {shared_data.role_data.map((role:any) => (
                             <MenuItem value={role.id} key={role.id}>
                                 {role.name}
                             </MenuItem>

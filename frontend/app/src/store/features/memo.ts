@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IMemo } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -14,7 +13,6 @@ type State = {
     items: {
         filter: {};
         result: {
-            data: IMemo[];
             total: number;
         };
     };
@@ -32,7 +30,6 @@ const initialState: State = {
     items: {
         filter: {},
         result: {
-            data: [],
             total: 0
         }
     }

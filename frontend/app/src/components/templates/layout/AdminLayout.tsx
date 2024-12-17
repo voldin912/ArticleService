@@ -56,7 +56,7 @@ const AdminLayout = ({ children }: Props) => {
                     drawerToggle={handleLeftDrawerToggle}
                 />
 
-                <AdminWrapper theme={theme} open={leftDrawerOpened}>
+                <AdminWrapper theme={theme} >
                     <Breadcrumbs separator={MdChevronRight} navigation={navigation} icon title rightAlign />
                     <div className='relative w-full'>{children}</div>
                 </AdminWrapper>

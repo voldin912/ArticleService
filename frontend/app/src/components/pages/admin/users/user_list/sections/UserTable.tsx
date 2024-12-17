@@ -24,7 +24,7 @@ const UserTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {result.data.map(user => {
+                    {result.data.map((user:any) => {
                         return (
                             <TableRow hover role='checkbox' tabIndex={-1} key={user.id}>
                                 <TableCell>{user.id}</TableCell>

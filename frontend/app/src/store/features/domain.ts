@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IMailDomain } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -21,7 +20,6 @@ type State = {
             pageSize: number;
         };
         result: {
-            data: IMailDomain[];
             total: number;
         };
     };
@@ -46,7 +44,6 @@ const initialState: State = {
             pageSize: 10
         },
         result: {
-            data: [],
             total: 0
         }
     }

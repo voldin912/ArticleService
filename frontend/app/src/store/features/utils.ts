@@ -12,7 +12,6 @@ type utilState = {
     navOpen: boolean;
     isOpen: any[];
     defaultId: string;
-    fontFamily: string;
     borderRadius: number;
     opened: true;
 };
@@ -23,7 +22,6 @@ const initialState: utilState = {
     navOpen: true,
     isOpen: [],
     defaultId: 'default',
-    fontFamily: config.fontFamily,
     borderRadius: config.borderRadius,
     opened: true
 };
@@ -56,10 +54,6 @@ export const util = createSlice({
             const payload = action.payload;
             state.defaultId = payload;
         },
-        setFontFamily: (state: utilState, action) => {
-            const payload = action.payload;
-            state.fontFamily = payload;
-        },
         setBorderRadius: (state: utilState, action) => {
             const payload = action.payload;
             state.borderRadius = payload;
@@ -79,7 +73,6 @@ export const {
     setNavOpen,
     setOpened,
     setDefaultId,
-    setFontFamily,
     setBorderRadius,
     setIsOpen
 } = util.actions;

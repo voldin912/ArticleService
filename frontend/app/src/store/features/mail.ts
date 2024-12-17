@@ -1,18 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IMail, IMailAttachment, IMailInbox, IProperty, IStatus } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
     item: {
         form: {
-            group: IStatus | IProperty | null;
             group_type: 'status' | 'property';
-            recipients: ICustomer[];
             domain: string;
             subject: string;
             body: string;
             open: boolean;
-            attachments: IMailAttachment[];
         };
         errors: any;
     };
@@ -24,8 +20,6 @@ type State = {
             pageSize: number;
         };
         result: {
-            customer?: ICustomer;
-            data: IMail[];
             total: number;
         };
     };
@@ -34,14 +28,11 @@ type State = {
 const initialState: State = {
     item: {
         form: {
-            group: null,
             group_type: 'status',
-            recipients: [],
             domain: '',
             subject: '',
             body: '',
             open: false,
-            attachments: []
         },
         errors: {}
     },
@@ -54,7 +45,6 @@ const initialState: State = {
             pageSize: 10
         },
         result: {
-            data: [],
             total: 0
         }
     }

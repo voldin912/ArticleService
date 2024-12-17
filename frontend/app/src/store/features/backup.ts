@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IBackup } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -14,7 +13,6 @@ type State = {
             pageSize: number;
         };
         result: {
-            data: IBackup[];
             total: number;
         };
     };
@@ -32,7 +30,6 @@ const initialState: State = {
             pageSize: 10
         },
         result: {
-            data: [],
             total: 0
         }
     }
@@ -44,7 +41,6 @@ export const fetchBackupList = createAsyncThunk('backup/fetchBackupList', async 
         return res.data;
     } else {
         return {
-            data: [],
             total: 0
         };
     }

@@ -8,7 +8,7 @@ export default function componentStyleOverrides(theme) {
                 root: {
                     fontWeight: 500,
                     borderRadius: '4px',
-                    backgroundColor: theme?.colors?.primary,
+                    backgroundColor: `#00A4E5 !important`,
                     color: '#fff'
                 }
             }

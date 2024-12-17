@@ -59,7 +59,7 @@ const NavItem = ({ item, level }: Props) => {
                 borderRadius: `${customization.borderRadius}px`,
                 mb: 0.5,
                 alignItems: 'flex-start',
-                backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
+                backgroundColor: 'inherit',
                 py: level > 1 ? 1 : 1.25,
                 pl: `${level * 24}px`
             }}

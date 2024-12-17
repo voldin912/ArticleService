@@ -54,10 +54,10 @@ const ArticleButton = styled(Button)({
     fontWeight: 700,
     padding: '12px 23px',
     lineHeight: '24px',
-    backgroundColor: '#00A4E5',
+    backgroundColor: '#00A4E5 !important',
     fontFamily: inter.variable,
     '&:hover': {
-      backgroundColor: '#1e88e5',
+      backgroundColor: '#1e88e5 !important',
       boxShadow: 'none',
     },
     '&:active': {
@@ -138,11 +138,14 @@ const AdminProfileSection = () => {
     }
 
     const gotoNext = () => {
+        console.log(articleData.cur_step)
         switch(articleData.cur_step) {
             case 1:
                 router.push('/members/articles/create_article2');
+                break;
             case 2: 
-                router.push('/members/articles/create_article3')
+                router.push('/members/articles/create_article3');
+                break;
         }
     }
 
@@ -214,7 +217,7 @@ const AdminProfileSection = () => {
                 color='primary'
             />
             {articleData.cur_step == 0 && <ArticleButton variant="contained" startIcon={<EditIcon />}  onClick={onClickCreateArticle}>記事投稿</ArticleButton>}
-            {articleData.cur_step == 1 && <div className='flex items-center gap-2'>
+            {(articleData.cur_step == 1 || articleData.cur_step == 2) && <div className='flex items-center gap-2'>
                 <ArticleButtonOutlined variant="outlined">下書き保存</ArticleButtonOutlined>
                 <ArticleButton variant="contained" onClick={()=>gotoNext()}>次のステップへ</ArticleButton>
             </div>}

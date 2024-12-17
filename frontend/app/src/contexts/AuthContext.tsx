@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     useEffect(() => {
         if (messages.length > 0) {
-            messages.map(_msg => {
+            messages.map((_msg:any) => {
                 if (_msg.type == 'success')
                     toast.success(_msg.message, {
                         style: {

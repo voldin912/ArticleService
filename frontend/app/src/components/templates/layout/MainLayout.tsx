@@ -43,7 +43,7 @@ const MainLayout = ({ children }: Props) => {
             >
                 <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
             </AppBar>
-            <MainWraaper theme={theme}>
+            <MainWraaper theme={theme} open={leftDrawerOpened}>
                 <div className='relative w-full'>{children}</div>
             </MainWraaper>
             <Footer />

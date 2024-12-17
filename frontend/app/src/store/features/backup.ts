@@ -1,3 +1,4 @@
+//@ts-disabled-nocheck
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getRequest } from '@/utils/axios';
 

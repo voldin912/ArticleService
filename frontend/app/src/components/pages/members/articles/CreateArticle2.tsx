@@ -73,7 +73,7 @@ const CreateArticle2Page = () => {
                                             inputProps={{
                                             'aria-label': 'weight',
                                             }}
-                                            onChange={(e)=>dispatch(setArticlePrice({price: e.target.value}))}
+                                            onChange={(e)=>dispatch(setArticlePrice({price: Number(e.target.value)}))}
                                         />
                                         </div>
                                     </div>

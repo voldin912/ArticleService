@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { publicApiInstance } from '@/utils/axios';
 import {IRole,IArticle } from '@/interfaces';
 import { Shared } from 'react-redux';
@@ -39,7 +39,7 @@ export const slice = createSlice({
     initialState,
     reducers: {
         reset: () => initialState,
-        setArticleStep: (state: SharedDataState, action:any) => {
+        setArticleStep: (state: SharedDataState, action:PayloadAction<{ cur_step: number }>) => {
             state.article_data = {
                 ...state.article_data,
                 cur_step: action.payload.cur_step
@@ -48,49 +48,49 @@ export const slice = createSlice({
         setArticleData: (state: SharedDataState, action:any) => {
             state.article_data = action.payload.article_data
         },
-        setArticleImage: (state: SharedDataState, action:any) => {
+        setArticleImage: (state: SharedDataState, action: PayloadAction<{ image: File }>) => {
             state.article_data = {
                 ...state.article_data,
                 image: action.payload.image
             }
         },
-        setArticleTitle: (state: SharedDataState, action:any) => {
+        setArticleTitle: (state: SharedDataState, action: PayloadAction<{ title: string }>) => {
             state.article_data = {
                 ...state.article_data,
                 title: action.payload.title
             }
         },
-        setArticleContent: (state: SharedDataState, action:any) => {
+        setArticleContent: (state: SharedDataState, action:PayloadAction<{ content: string }>) => {
             state.article_data = {
                 ...state.article_data,
                 content: action.payload.content
             }
         },
-        setArticleCategory: (state: SharedDataState, action:any) => {
+        setArticleCategory: (state: SharedDataState, action:PayloadAction<{ category: string }>) => {
             state.article_data = {
                 ...state.article_data,
                 category: action.payload.category
             }
         },
-        setArticlePrice: (state: SharedDataState, action:any) => {
+        setArticlePrice: (state: SharedDataState, action:PayloadAction<{ price: number }>) => {
             state.article_data = {
                 ...state.article_data,
                 price: action.payload.price
             }
         },
-        setArticleNonFreeArea: (state: SharedDataState, action:any) => {
+        setArticleNonFreeArea: (state: SharedDataState, action:PayloadAction<{ nonfree: number }>) => {
             state.article_data = {
                 ...state.article_data,
                 nonfree: action.payload.nonfree
             }
         },
-        setArticleCreator: (state: SharedDataState, action:any) => {
+        setArticleCreator: (state: SharedDataState, action:PayloadAction<{ created_by: number }>) => {
             state.article_data = {
                 ...state.article_data,
                 created_by: action.payload.created_by
             }
         },
-        setArticleCreatedAt: (state: SharedDataState, action:any) => {
+        setArticleCreatedAt: (state: SharedDataState, action:PayloadAction<{ created_at: string }>) => {
             state.article_data = {
                 ...state.article_data,
                 created_at: action.payload.created_at

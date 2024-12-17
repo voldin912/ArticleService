@@ -24,8 +24,8 @@ const NavItem = ({ item, level }: Props) => {
     ) : (
         <FiberManualRecordIcon
             sx={{
-                width: customization.isOpen.findIndex(id => id === item?.id) > -1 ? 8 : 6,
-                height: customization.isOpen.findIndex(id => id === item?.id) > -1 ? 8 : 6
+                width: customization.isOpen.findIndex((id:any) => id === item?.id) > -1 ? 8 : 6,
+                height: customization.isOpen.findIndex((id:any) => id === item?.id) > -1 ? 8 : 6
             }}
             fontSize={level > 0 ? 'inherit' : 'medium'}
         />
@@ -63,16 +63,16 @@ const NavItem = ({ item, level }: Props) => {
                 py: level > 1 ? 1 : 1.25,
                 pl: `${level * 24}px`
             }}
-            selected={customization.isOpen.findIndex(id => id === item.id) > -1}
+            selected={customization.isOpen.findIndex((id:any) => id === item.id) > -1}
             onClick={() => itemHandler(item.id)}
         >
             <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
             <ListItemText
                 primary={
                     <Typography
-                        variant={customization.isOpen.findIndex(id => id === item.id) > -1 ? 'h5' : 'body1'}
+                        variant={customization.isOpen.findIndex((id:any) => id === item.id) > -1 ? 'h5' : 'body1'}
                         color='inherit'
-                    >
+                    > 
                         {item.title}
                     </Typography>
                 }

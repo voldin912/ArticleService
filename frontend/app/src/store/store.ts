@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import logger from 'redux-logger';
 
 import shared_data from './features/shared_data';
@@ -39,6 +39,7 @@ export const store = configureStore({
         backup,
     },
     devTools: process.env.NODE_ENV !== 'production',
+
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
@@ -46,7 +47,7 @@ export const store = configureStore({
                 ignoredPaths: ['shared_data.article_data.image'],
                 ignoredActions: ['shared_data/setArticleImage'],
               },
-        }).concat(process.env.NODE_ENV !== 'production' ? [logger] : [])
+        })
 });
 
 setupListeners(store.dispatch);

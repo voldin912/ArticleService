@@ -77,17 +77,17 @@ const ArticleButtonOutlined = styled(Button)({
     fontWeight: 700,
     padding: '12px 23px',
     lineHeight: '24px',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff !important',
     border: 'solid 1px #1976d2',
     color: '#00A4E5',
     fontFamily: inter.variable,
     '&:hover': {
-      backgroundColor: '#1976D20A',
+      backgroundColor: '#1976D20A !important',
       boxShadow: 'none',
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: '#1976D20A',
+      backgroundColor: '#1976D20A !important',
       borderColor: '#1976d2',
     },
     '&:focus': {

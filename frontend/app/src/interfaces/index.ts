@@ -30,7 +30,7 @@ export interface IArticle {
     image: File | null;
     title: string;
     content: string;
-    category: string;
+    category: string[];
     price: number;
     nonfree: number;
     created_by: number;

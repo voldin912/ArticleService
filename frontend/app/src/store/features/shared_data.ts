@@ -16,7 +16,7 @@ const initialState: SharedDataState = {
         image: null,
         title: '',
         content: '',
-        category: '',
+        category: [],
         price: 0,
         nonfree: 0,
         created_by: 0,
@@ -66,7 +66,7 @@ export const slice = createSlice({
                 content: action.payload.content
             }
         },
-        setArticleCategory: (state: SharedDataState, action:PayloadAction<{ category: string }>) => {
+        setArticleCategory: (state: SharedDataState, action:PayloadAction<{ category: string[] }>) => {
             state.article_data = {
                 ...state.article_data,
                 category: action.payload.category

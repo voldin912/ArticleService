@@ -5,24 +5,23 @@ import AdminLayout from '@/components/templates/layout/AdminLayout';
 import { useAuth } from '@/contexts/AuthContext';
 import { setArticleCategory, setArticleContent, setArticleImage, setArticlePrice, setArticleStep, setArticleTitle } from '@/store/features/shared_data';
 import { useAppDispatch } from '@/store/hooks';
-import { FormControl, Input, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField, Theme, useTheme } from '@mui/material';
+import { Checkbox, FormControl, Input, InputAdornment, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField, Theme, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 const CreateArticle2Page = () => {
     const { user } = useAuth()
     const dispatch = useAppDispatch()
-    const [value, setValue] = useState('');
     const [cur_category, setCurCategory] = useState<string[]>([]);
     const theme = useTheme();
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
-    PaperProps: {
-        style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: '100%',
+        PaperProps: {
+            style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: '100%',
+            },
         },
-    },
     };
 
     function getStyles(category: string, categories: string[], theme: Theme) {
@@ -37,15 +36,13 @@ const CreateArticle2Page = () => {
         const {
           target: { value },
         } = event;
-        setCurCategory(
-          // On autofill we get a stringified value.
-          typeof value === 'string' ? value.split(',') : value,
-        );
+        const val_temp = typeof value === 'string' ? value.split(',') : value
+        setCurCategory(val_temp)
+        dispatch(setArticleCategory({category: val_temp }))
     };
 
     const categories = [
         'ライフスタイル','ノウハウ','オタ活','ゲーム','ギャンブル','スピリチュアル','北海道・東北','東京都','関東','愛知県','中部・近畿','中国・四国・九州'];
-
     useEffect(()=>{
         dispatch(setArticleStep({cur_step: 2}))
     },[])
@@ -65,16 +62,16 @@ const CreateArticle2Page = () => {
                                     <div className='flex items-center'>
                                         <h4 className='font-bold text-[18px] w-[250px]'>販売金額</h4>
                                         <div className='text-[18px] w-full text-lg font-normal leading-[46px] tracking-[0.1em]'>
-                                        <OutlinedInput
-                                            fullWidth
-                                            id="outlined-adornment-weight"
-                                            endAdornment={<InputAdornment position="end">¥</InputAdornment>}
-                                            aria-describedby="outlined-weight-helper-text"
-                                            inputProps={{
-                                            'aria-label': 'weight',
-                                            }}
-                                            onChange={(e)=>dispatch(setArticlePrice({price: Number(e.target.value)}))}
-                                        />
+                                            <OutlinedInput
+                                                fullWidth
+                                                id="outlined-adornment-weight"
+                                                endAdornment={<InputAdornment position="end">¥</InputAdornment>}
+                                                aria-describedby="outlined-weight-helper-text"
+                                                inputProps={{
+                                                'aria-label': 'weight',
+                                                }}
+                                                onChange={(e)=>dispatch(setArticlePrice({price: Number(e.target.value)}))}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +82,6 @@ const CreateArticle2Page = () => {
                                         <h4 className='font-bold text-[18px] w-[250px]'>カテゴリー</h4>
                                         <div className='text-[18px] w-full text-lg relative font-normal leading-[46px] tracking-[0.1em]'>
                                             <FormControl sx={{ m: 1, width: 300 }}>
-                                                <InputLabel id="demo-multiple-name-label">Name</InputLabel>
                                                 <Select
                                                     labelId="demo-multiple-name-label"
                                                     id="demo-multiple-name"

@@ -22,7 +22,6 @@ class GetUsersAPI(APIView):
         try:
             m_data = User.objects.filter(Q(user_info__name__contains=keyword) | Q(email__contains=keyword), Q(permission="customer"), Q(is_active=True)).order_by('id')
             serializer = UserSerializer(m_data[pageSize * (page - 1):pageSize * page], many=True)
-
             return Response({
                 "data": serializer.data,
                 "total": m_data.count()

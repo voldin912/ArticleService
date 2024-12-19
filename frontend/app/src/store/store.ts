@@ -47,7 +47,7 @@ export const store = configureStore({
                 ignoredPaths: ['shared_data.article_data.image'],
                 ignoredActions: ['shared_data/setArticleImage'],
               },
-        })
+        }).concat(process.env.NODE_ENV !== 'production' ? [logger] : [])
 });
 
 setupListeners(store.dispatch);

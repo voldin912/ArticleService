@@ -1,0 +1,97 @@
+/* Resetting default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif; /* フォントファミリー */
+    line-height: 1.5; /* 行の高さ */
+    color: #333; /* 文字色 */
+}
+
+/* Headings */
+h1 {
+    font-size: 2em; /* フォントサイズ */
+    margin: 0.67em 0; /* 上下のマージン */
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+
+h6 {
+    font-size: 0.67em;
+    margin: 2.33em 0;
+}
+
+/* Paragraphs */
+p {
+    margin: 1em 0; /* 上下のマージン */
+}
+
+/* Lists */
+ul, ol {
+    margin: 1em 0; /* 上下のマージン */
+    padding-left: 1.5em; /* 左のパディング */
+}
+
+/* Links */
+a {
+    color: blue; /* リンクの色 */
+    text-decoration: underline; /* 下線 */
+}
+
+a:hover {
+    text-decoration: none; /* ホバー時に下線を消す */
+}
+
+/* Blockquotes */
+blockquote {
+    margin: 1em 0; /* 上下のマージン */
+    padding: 0.5em 1em; /* パディング */
+    border-left: 4px solid #ccc; /* 左のボーダー */
+    color: #555; /* 文字色 */
+}
+
+/* Images */
+img {
+    max-width: 100%; /* 画像をレスポンシブに */
+    height: auto; /* 高さは自動 */
+}
+
+/* Tables */
+table {
+    border-collapse: collapse; /* ボーダーを重ねて表示 */
+    width: 100%; /* 幅を100%に */
+}
+
+th, td {
+    border: 1px solid #ccc; /* ボーダー */
+    padding: 0.5em; /* パディング */
+    text-align: left; /* 左揃え */
+}
+
+/* Div */
+div {
+    margin: 0; /* デフォルトのマージン */
+    padding: 0; /* デフォルトのパディング */
+}

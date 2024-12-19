@@ -33,7 +33,8 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
 // _app.tsx or any specific page/component
 import { Inter, Noto_Sans_JP } from 'next/font/google';
-import { reset, setArticleStep } from '@/store/features/shared_data';
+import { reset, setArticleData, setArticleStep } from '@/store/features/shared_data';
+import { postFormdata } from '@/utils/axios';
 
 const inter = Inter({
     subsets: ['latin'], // Specify character subsets (e.g., 'latin', 'latin-ext')
@@ -137,7 +138,7 @@ const AdminProfileSection = () => {
         router.push('/members/articles/create_article');
     }
 
-    const gotoNext = () => {
+    const gotoNext = async () => {
         console.log(articleData.cur_step)
         switch(articleData.cur_step) {
             case 1:
@@ -145,6 +146,37 @@ const AdminProfileSection = () => {
                 break;
             case 2: 
                 router.push('/members/articles/create_article3');
+                break;
+            case 3:
+                const formData = new FormData();
+                if(articleData.id != -1) {
+                    formData.append('id', articleData.id);
+                }
+                formData.append('image', articleData.image)
+                formData.append('title', articleData.title)
+                formData.append('content', articleData.content)
+                formData.append('price', articleData.price)
+                formData.append('category', articleData.category.join(','))
+                formData.append('nonfree', articleData.nonfree)
+                formData.append('public', true)
+
+                const res = await postFormdata('/v0/article', formData)
+                console.log("***voldin", res)
+                if (res.status == 200) {
+                    dispatch(setArticleData({article_data:{
+                        cur_step: 0,
+                        id: res.data.id,
+                        image: articleData.image,
+                        title: res.data.title,
+                        content: res.data.content,
+                        category: res.data.categories.includes(',')? res.data.categories.split(','): [res.data.categories],
+                        price: res.data.price,
+                        nonfree: res.data.nonfree,
+                        created_by: res.data.created_by.id,
+                        created_at: res.data.created_at
+                    }}));
+                    router.push('/members/articles/public_success');
+                }
                 break;
         }
     }
@@ -220,6 +252,10 @@ const AdminProfileSection = () => {
             {(articleData.cur_step == 1 || articleData.cur_step == 2) && <div className='flex items-center gap-2'>
                 <ArticleButtonOutlined variant="outlined">下書き保存</ArticleButtonOutlined>
                 <ArticleButton variant="contained" onClick={()=>gotoNext()}>次のステップへ</ArticleButton>
+            </div>}
+            {(articleData.cur_step == 3) && <div className='flex items-center gap-2'>
+                <ArticleButtonOutlined variant="outlined">下書き保存</ArticleButtonOutlined>
+                <ArticleButton variant="contained" onClick={()=>gotoNext()}>公開する</ArticleButton>
             </div>}
             <Popper
                 placement='bottom-start'

@@ -26,13 +26,16 @@ const SignInPage = () => {
     const currentItem = useAppSelector(state => state.login.item.form);
     const errors = useAppSelector(state => state.login.item.errors);
 
+    const searchParams = new URLSearchParams(window.location.search);
+    const redirectTo = searchParams.get('redirect_to') || '/accounts/my_page';
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         login &&
             (await login(currentItem, user => {
                 if (user) {
-                    router.push('/accounts/my_page');
+                    router.push(redirectTo);
                     dispatch(appendMessage({ type: 'success', message: 'ログインしました。' }));
                 } else {
                     dispatch(appendMessage({ type: 'error', message: 'IDまたはパスワードが間違っています。' }));

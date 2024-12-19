@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { publicApiInstance } from '@/utils/axios';
 import {IRole,IArticle } from '@/interfaces';
-import { Shared } from 'react-redux';
 
 type SharedDataState = {
     role_data: IRole[];
@@ -12,7 +11,7 @@ const initialState: SharedDataState = {
     role_data: [],
     article_data: {
         cur_step: 0,
-        id: 0,
+        id: -1,
         image: null,
         title: '',
         content: '',
@@ -45,7 +44,7 @@ export const slice = createSlice({
                 cur_step: action.payload.cur_step
             };
         },
-        setArticleData: (state: SharedDataState, action:any) => {
+        setArticleData: (state: SharedDataState, action:PayloadAction<{ article_data: IArticle }>) => {
             state.article_data = action.payload.article_data
         },
         setArticleImage: (state: SharedDataState, action: PayloadAction<{ image: File }>) => {

@@ -101,7 +101,7 @@ const ArticleButtonOutlined = styled(Button)({
 const AdminProfileSection = () => {
     const router = useRouter();
     const theme = useTheme();
-    const { user, logout } = useAuth();
+    const { user, logout, isAuthenticated} = useAuth();
 
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
@@ -121,6 +121,10 @@ const AdminProfileSection = () => {
         }
         setOpen(false);
     };
+
+    const onClickLogin = () => {
+        router.push('/accounts/sign_in');
+    }
 
     const handleListItemClick = (event, index, route = '') => {
         setSelectedIndex(index);
@@ -192,62 +196,73 @@ const AdminProfileSection = () => {
 
     return (
         <div className='flex gap-[32px]'>
-            <Chip
-                sx={{
-                    height: '48px',
-                    alignItems: 'center',
-                    borderRadius: '27px',
-                    transition: 'all .2s ease-in-out',
-                    borderColor: theme.palette.primary.light,
-                    backgroundColor: theme.palette.primary.light,
-                    '&[aria-controls="menu-list-grow"], &:hover': {
-                        borderColor: theme.palette.primary.main,
-                        background: `${theme.palette.primary.main}!important`,
-                        color: theme.palette.primary.light,
-                        '& svg': {
-                            stroke: theme.palette.primary.light,
-                            color: `${theme.palette.primary.light}!important`
+            {
+                isAuthenticated && <>
+                <Chip
+                    sx={{
+                        height: '48px',
+                        alignItems: 'center',
+                        borderRadius: '27px',
+                        transition: 'all .2s ease-in-out',
+                        borderColor: theme.palette.primary.light,
+                        backgroundColor: theme.palette.primary.light,
+                        '&[aria-controls="menu-list-grow"], &:hover': {
+                            borderColor: theme.palette.primary.main,
+                            background: `${theme.palette.primary.main}!important`,
+                            color: theme.palette.primary.light,
+                            '& svg': {
+                                stroke: theme.palette.primary.light,
+                                color: `${theme.palette.primary.light}!important`
+                            }
+                        },
+                        '& .MuiChip-label': {
+                            lineHeight: 0
                         }
-                    },
-                    '& .MuiChip-label': {
-                        lineHeight: 0
-                    }
-                }}
-                label={<FaRegEnvelope size='1.5rem' color={theme.palette.primary.main} />}
-                variant='outlined'
-                ref={anchorRef}
-                aria-haspopup='true'
-                color='primary'
-            />
-            <Chip
-                sx={{
-                    height: '48px',
-                    alignItems: 'center',
-                    borderRadius: '27px',
-                    transition: 'all .2s ease-in-out',
-                    borderColor: theme.palette.primary.light,
-                    backgroundColor: theme.palette.primary.light,
-                    '&[aria-controls="menu-list-grow"], &:hover': {
-                        borderColor: theme.palette.primary.main,
-                        background: `${theme.palette.primary.main}!important`,
-                        color: theme.palette.primary.light,
-                        '& svg': {
-                            stroke: theme.palette.primary.light,
-                            color: `${theme.palette.primary.light}!important`
+                    }}
+                    label={<FaRegEnvelope size='1.5rem' color={theme.palette.primary.main} />}
+                    variant='outlined'
+                    ref={anchorRef}
+                    aria-haspopup='true'
+                    color='primary'
+                />
+                <Chip
+                    sx={{
+                        height: '48px',
+                        alignItems: 'center',
+                        borderRadius: '27px',
+                        transition: 'all .2s ease-in-out',
+                        borderColor: theme.palette.primary.light,
+                        backgroundColor: theme.palette.primary.light,
+                        '&[aria-controls="menu-list-grow"], &:hover': {
+                            borderColor: theme.palette.primary.main,
+                            background: `${theme.palette.primary.main}!important`,
+                            color: theme.palette.primary.light,
+                            '& svg': {
+                                stroke: theme.palette.primary.light,
+                                color: `${theme.palette.primary.light}!important`
+                            }
+                        },
+                        '& .MuiChip-label': {
+                            lineHeight: 0
                         }
-                    },
-                    '& .MuiChip-label': {
-                        lineHeight: 0
-                    }
-                }}
-                label={<FaRegUser size='1.5rem' color={theme.palette.primary.main} />}
-                variant='outlined'
-                ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
-                aria-haspopup='true'
-                onClick={handleToggle}
-                color='primary'
-            />
+                    }}
+                    label={<FaRegUser size='1.5rem' color={theme.palette.primary.main} />}
+                    variant='outlined'
+                    ref={anchorRef}
+                    aria-controls={open ? 'menu-list-grow' : undefined}
+                    aria-haspopup='true'
+                    onClick={handleToggle}
+                    color='primary'
+                />
+                </>
+            }
+
+            {
+                !isAuthenticated && <>
+                    <button className="px-6 py-2 text-[20px] font-bold leading-[28.96px] text-black/50 border border-transparent rounded-lg hover:border-gray-400 transition duration-300 ease-in-out" onClick={()=>onClickLogin()}>ログイン</button>
+                </>
+            }
+            
             {articleData.cur_step == 0 && <ArticleButton variant="contained" startIcon={<EditIcon />}  onClick={onClickCreateArticle}>記事投稿</ArticleButton>}
             {(articleData.cur_step == 1 || articleData.cur_step == 2) && <div className='flex items-center gap-2'>
                 <ArticleButtonOutlined variant="outlined">下書き保存</ArticleButtonOutlined>

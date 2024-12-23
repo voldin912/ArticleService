@@ -5,14 +5,19 @@ import { font_genjyuu_bold, font_genjyuu_regular } from '@/app/layout';
 import ProfileSection from '../sections/ProfileSection';
 import AdminProfileSection from '../sections/AdminProfileSection';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/store/hooks';
+import { reset } from '@/store/features/shared_data';
 interface Props {
     handleLeftDrawerToggle: () => void;
 }
 
 const AdminHeader = ({ handleLeftDrawerToggle }: Props) => {
     const router = useRouter()
+    const dispatch = useAppDispatch()
+
     const gotoTop = () => {
-        router.push('/nologin/top')
+        dispatch(reset())
+        router.push('/common/top')
     }
     return (
         <>

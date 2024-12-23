@@ -7,7 +7,7 @@ const RedirectPage = ({}: Props) => {
     const router = useRouter();
 
     useEffect(() => {
-        router.push(`/nologin/top`);
+        router.push(`/common/top`);
     }, []);
 
     return null;

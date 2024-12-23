@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getRequest } from '@/utils/axios';
 import { useTheme } from '@emotion/react';
 import { Chip } from '@mui/material';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 
@@ -34,7 +34,7 @@ const ArticlePage = () => {
     const {user, isAuthenticated} = useAuth();
     const theme = useTheme()
     const [article, setArticle] = useState<Article | null>(null)
-    console.log("****voldin isAuthenticated", isAuthenticated, user)
+    const router = useRouter()
     useEffect(()=>{
         (async()=>{
             const res =await getRequest(`/v0/articles/${id}`)
@@ -42,6 +42,10 @@ const ArticlePage = () => {
             console.log(res.data)
         })()
     },[])
+
+    const gotoPurChase = () => {
+        router.push('/members/articles/purchase_success')
+    }
     return (
         <AuthLayout>
             <AdminLayout>
@@ -90,7 +94,9 @@ const ArticlePage = () => {
                                         </div>
                                         <div>¥ {article.price}</div>
                                     </div>
-                                    <div className='flex items-center justify-end pb-[26px]'>
+                                    <div className='flex items-center justify-end pb-[26px]'
+                                        onClick={()=>gotoPurChase()}
+                                    >
                                         <div className='cursor-pointer text-[20px] text-white bg-[#00A4E5] rounded-[124px] flex items-center justify-center gap-[20px] w-[340px] h-[64px] '>
                                             <svg width="29" height="31" viewBox="0 0 29 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M28.6595 7.6733L7.83792 5.90321L7.52123 3.97412C7.23038 2.21366 5.92454 0.849232 4.27502 0.587003L0.576688 0L0.294922 2.04146L3.99371 2.62998C4.82191 2.76106 5.48025 3.44761 5.62567 4.33341L8.61375 22.504C8.89417 24.2095 10.2746 25.452 11.8893 25.4525H24.8533L25.2387 23.3877H11.8894C11.2094 23.3888 10.6268 22.8633 10.5094 22.1452L10.0906 19.6027H26.0937L28.6595 7.6733Z" fill="white"/>
@@ -116,7 +122,7 @@ const ArticlePage = () => {
 
                                     <p className="text-2xl font-bold text-gray-800">¥ {article.price}</p>
                                     </div>
-                                    <div className='cursor-pointer text-[20px] text-white bg-[#00A4E5] rounded-[124px] flex items-center justify-center gap-[20px] w-[340px] py-2 mx-auto h-[64px]'>
+                                    <div className='cursor-pointer text-[20px] text-white bg-[#00A4E5] rounded-[124px] flex items-center justify-center gap-[20px] w-[340px] py-2 mx-auto h-[64px]' onClick={()=>gotoPurChase()}>
                                         <svg width="29" height="31" viewBox="0 0 29 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M28.6595 7.6733L7.83792 5.90321L7.52123 3.97412C7.23038 2.21366 5.92454 0.849232 4.27502 0.587003L0.576688 0L0.294922 2.04146L3.99371 2.62998C4.82191 2.76106 5.48025 3.44761 5.62567 4.33341L8.61375 22.504C8.89417 24.2095 10.2746 25.452 11.8893 25.4525H24.8533L25.2387 23.3877H11.8894C11.2094 23.3888 10.6268 22.8633 10.5094 22.1452L10.0906 19.6027H26.0937L28.6595 7.6733Z" fill="white"/>
                                             <path d="M12.6229 26.5594C11.48 26.5594 10.5537 27.5539 10.5537 28.7801C10.5537 30.0064 11.48 31 12.6229 31C13.7661 31 14.6926 30.0064 14.6926 28.7801C14.6926 27.5539 13.7661 26.5594 12.6229 26.5594Z" fill="white"/>

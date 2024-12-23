@@ -64,3 +64,38 @@ class ArticleView(APIView):
         except Exception as e:
             print(str(e))
             return Response({"msg": str(e)}, status=400)
+
+class PopularArticlesView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            category = request.data.get('category')
+            print(category)
+            top_articles = Article.objects.filter(public=1,categories__contains=category).order_by('-visited')[:4]
+            return Response(ArticleSerializer(top_articles, many=True).data, 200)
+        except Exception as e:
+            print(str(e))
+            return Response({"msg": "Can't find Article Info"}, status=404)
+class FollowArticlesView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            category = request.data.get('category')
+            print(category)
+            top_articles = Article.objects.filter(public=1,categories__contains=category).order_by('-visited')[:4]
+            return Response(ArticleSerializer(top_articles, many=True).data, 200)
+        except Exception as e:
+            print(str(e))
+            return Response({"msg": "Can't find Article Info"}, status=404)
+class CategoryArticlesView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            top_articles = Article.objects.filter(public=1,categories__contains='ゲーム').order_by('-visited')[:4]
+            return Response(ArticleSerializer(top_articles, many=True).data, 200)
+        except Exception as e:
+            print(str(e))
+            return Response({"msg": "Can't find Article Info"}, status=404)

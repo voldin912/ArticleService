@@ -3,12 +3,12 @@
 import dynamic from 'next/dynamic';
 import Loading from '@/components/templates/Loading';
 
-const TopPage = dynamic(() => import('@/components/pages/nologin/TopPage'), {
+const PurchaseSuccessPage = dynamic(() => import('@/components/pages/members/articles/PurchaseSuccess'), {
     loading: () => <Loading />
 });
 
 const Page = () => {
-    return <TopPage />;
+    return <PurchaseSuccessPage />;
 };
 
 export default Page;
